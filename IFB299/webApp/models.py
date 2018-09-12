@@ -103,6 +103,9 @@ class Customer(models.Model):
     customer_occupation = models.CharField(db_column='Customer_Occupation', max_length=20)  # Field name made lowercase.
     customer_gender = models.CharField(db_column='Customer_Gender', max_length=1)  # Field name made lowercase.
 
+    def get_absolute_url(self):
+        return "customer/%i/" % self.customer_id
+
     class Meta:
         managed = False
         db_table = 'customer'
