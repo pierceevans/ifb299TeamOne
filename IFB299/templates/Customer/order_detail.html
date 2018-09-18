@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>ID: {{ order.order_id }}</h1>
+  <h1>Vehicle: {{ order.car_id }}</h1>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h3>Details</h3>
+
+    {% for vehicle in vehicles %}
+      {% if order.car_id == vehicle.car_id  %}
+        <h4> {{ vehicle.car_id }} </h4>
+      {% endif %}
+    {% endfor %}
+
+  </div>
+{% endblock %}

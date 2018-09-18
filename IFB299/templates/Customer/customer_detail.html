@@ -1,17 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Name: {{ customer.customer_id }}</h1>
+  <h1>Name: {{ customer.customer_name }}</h1>
+  <h1>ID: {{ customer.customer_id }}</h1>
 
   <div style="margin-left:20px;margin-top:20px">
-    <h4>Orders</h4>
+    <h3>Orders</h3>
 
-    {% for Order in Orders %}
-      <hr>
-      {% if Order.Customer_ID == customer.Customer_ID %}
-        <p><strong>Order:</strong> {{Order.Order_ID}}</p>
+    {% for order in orders %}
+      {% if order.customer_id == customer.customer_id  %}
+        <li>
+          <a href="{{ order.get_order_url }}">{{ order.order_id }}</a>
+        </li>
       {% endif %}
-
     {% endfor %}
+
   </div>
 {% endblock %}

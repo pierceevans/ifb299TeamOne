@@ -8,5 +8,6 @@ from django.urls import include, path
 urlpatterns = [
     path('', views.index, name='index'),
     path('Customers/', views.CustomerListView.as_view(), name='customers'),
-    path('customer/<int:pk>', views.CustomerDetailView.as_view(), name='customer-detail'),
+    path('Customers/<int:customerID>/', views.CustomerDetailView, name='customer-detail'),
+    path('Customers/<int:customerID>/Orders/<int:orderID>', views.OrderDetailView, name='order-detail'),
 ]

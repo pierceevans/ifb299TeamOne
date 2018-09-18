@@ -6,11 +6,11 @@
   <ul>
     {% for customer in customer_list %}
       <li>
-        <a href="{{ customer.get_absolute_url }}">{{ customer.customer_name }}</a> ({{customer.customer_id}})
+        <a href="{{ customer.get_customer_url }}">{{ customer.customer_name }}</a> ({{customer.customer_id}})
       </li>
     {% endfor %}
   </ul>
-  {% else %}0
+  {% else %}
     <p>There are no customers in the database.</p>
   {% endif %}
 {% endblock %}

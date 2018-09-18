@@ -103,8 +103,8 @@ class Customer(models.Model):
     customer_occupation = models.CharField(db_column='Customer_Occupation', max_length=20)  # Field name made lowercase.
     customer_gender = models.CharField(db_column='Customer_Gender', max_length=1)  # Field name made lowercase.
 
-    def get_absolute_url(self):
-        return "customer/%i/" % self.customer_id
+    def get_customer_url(self):
+        return "%i/" % self.customer_id
 
     class Meta:
         managed = False
@@ -186,6 +186,9 @@ class Order(models.Model):
     order_create_date = models.ForeignKey('Time', models.DO_NOTHING, db_column='Order_Create_Date_ID', related_name="pickup_date")  # Field name made lowercase.
     pickup_date = models.ForeignKey('Time', models.DO_NOTHING, db_column='Pickup_Date_ID', related_name="return_date")  # Field name made lowercase.
     return_date = models.ForeignKey('Time', models.DO_NOTHING, db_column='Return_Date_ID', related_name="order_create_date")  # Field name made lowercase.
+
+    def get_order_url(self):
+        return "Orders/%i/" % self.order_id
 
     class Meta:
         managed = False
