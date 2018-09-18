@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Name: {{ customer.customer_name }}</h1>
+  <h1>ID: {{ customer.customer_id }}</h1>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Orders</h4>
+
+    {% for item in order_list %}
+      {% if item.customer_id == customer.customer_id  %}
+        <h4> {{ item.order_id }} </h4>
+
+      {% else %}
+
+        <h4> not this customer's </h4>
+
+      {% endif %}
+    {% endfor %}
+
+  </div>
+{% endblock %}

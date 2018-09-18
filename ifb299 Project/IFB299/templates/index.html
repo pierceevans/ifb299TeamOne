@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1> IFB299 Web Application </h1>
+  <p>Welcome to webApp, a website application developed by <em>IFB299 Team One</em>!</p>
+  <h2>Dynamic content</h2>
+  <p>The application has the following record counts:</p>
+  <ul>
+    <li><strong>Orders:</strong> {{ num_orders }}</li>
+    <li><strong>Customers:</strong> {{ num_customers }}</li>
+  </ul>
+{% endblock %}
