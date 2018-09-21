@@ -1,6 +1,96 @@
+.page-header {
+  margin-top: 0;
+  background-color: #153E89;
+  width: 100%;
+  height: 15%;
+  font-family: 'M+ P Type-1 (basic latin) Thin';
+  color: #DDDDDD;
+  overflow: hidden;
+}
+
+.page-header h2 {
+  padding-left: 15px;
+  padding-bottom: 0px;
+  font-family: 'M+ P Type-1 (basic latin) Light';
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 0px;
+  padding-top: 20px;
+}
+
+.page-header h6 {
+  padding-left: 15px;
+  padding-bottom: 3px;
+  padding-top: 0px
+  display: inline-block;
+  margin-right: 10px;
+
+}
+
+.page-header p {
+  display: inline-block;
+  margin-bottom: 0px;
+  float: right;
+  padding-top: 35px;
+  padding-right: 45px;
+}
+
+.login-form {
+  padding-top: 20px;
+}
+
+.page-header a {
+  text-decoration: none;
+}
+
 .sidebar-nav {
     margin-top: 20px;
     padding: 0;
     list-style: none;
-    
+
+}
+
+.col-sm-10 {
+  margin-top: 0;
+}
+
+.page-footer {
+  height: 50px;
+  width:100%;
+  padding-top: 15px;
+  background-color: #153E89;
+  font-family: 'M+ P Type-1 (basic latin) Thin';
+  color: #DDDDDD;
+  padding-bottom: 5px;
+  padding-left: 3px;
+}
+
+.page-footer a {
+  float: right;
+  padding-right: 6px;
+}
+
+.main-content {
+  min-height: calc(100vh - 50px);
+}
+
+label {
+  font-weight: bold;
+}
+#car_table td {
+  font-size: 10px;
+}
+
+#car_table table, th, td {
+   border: 1px solid black;
+}
+
+#car_table th {
+  font-family: 'M+ P Type-1 (basic latin) Thin';
+
+  text-align: center;
+}
+
+#car-details {
+  font-family: 'M+ P Type-1 (basic latin) Light';
 }

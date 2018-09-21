@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>{{ car.car_make_key.car_make_name }} {{ car.car_make_key.car_model }} {{ car.car_make_key.car_series }}</h2>
+  <div id="car-details">
+    <p><b>Year released: </b>{{ car.car_series_year }}&nbsp&nbsp&nbsp <b>Original Price: </b>${{ car.car_pricenew }} </p>
+    <p><b>Engine Size: </b>{{ car.car_enginesize }} </p>
+    <p><b>Fuel System: </b>{{ car.car_fuelsystem }} </p>
+    <p><b>Tank Capacity:</b> {{ car.car_tankcapacity }} </p>
+    <p><b>Power:</b> {{ car.car_power }} </p>
+    <p><b>Seats:</b> {{ car.car_seatingcapacity }} </p>
+    <p><b>Standard Capacity: </b>{{ car.car_standardcapacity }} </p>
+    <p><b>Body Type:</b> {{ car.car_bodytype }} </p>
+    <p><b>Drive:</b> {{ car.car_drive }}&nbsp&nbsp&nbsp <b>Wheelbase: </b>{{ car.car_wheelbase }} </p>
+  </div>
+
+{% endblock %}

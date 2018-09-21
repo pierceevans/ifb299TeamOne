@@ -89,6 +89,9 @@ class Car(models.Model):
     car_drive = models.CharField(db_column='Car_Drive', max_length=3, blank=True, null=True)  # Field name made lowercase.
     car_wheelbase = models.CharField(db_column='Car_Wheelbase', max_length=6, blank=True, null=True)  # Field name made lowercase.
 
+    def get_car_url(self):
+        return "%i/" % self.car_id
+
     class Meta:
         managed = False
         db_table = 'car'

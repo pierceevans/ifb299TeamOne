@@ -1,12 +1,59 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1> IFB299 Web Application </h1>
-  <p>Welcome to webApp, a website application developed by <em>IFB299 Team One</em>!</p>
-  <h2>Dynamic content</h2>
-  <p>The application has the following record counts:</p>
+  <h3>Need to rent a car? You'll find it here!</h3>
+  <br>
+  <form id='car-search-form' method='POST' action='{% url 'search_results' %}'>
+    {% csrf_token %}
+    <label> Make </label>
+    <select id='car-make' name='make'>
+        <option value=any>Any Make</option>
+      {% for make in makelist %}
+        <option value={{ make.car_make_name }}>{{ make.car_make_name }}</option>
+      {% endfor %}
+    </select>
+    <label> Model </label>
+    <select id='car-model' name='model'>
+        <option value=any>Any Model</option>
+    </select>
+    <label> Fuel System </label>
+    <select id='car-fuel-system' name='fuel'>
+        <option value=any>Any Fuel System</option>
+        {% for fuel in car_fuelsystem_list %}
+          <option value={{ fuel.car_fuelsystem }}>{{ fuel.car_fuelsystem }}</option>
+        {% endfor %}
+    </select>
+    <label> Drive </label>
+    <select id='car-drive' name='drive'>
+        <option value=any>Any Drive</option>
+        {% for drive in car_drive_list %}
+          <option value={{ drive.car_drive }}>{{ drive.car_drive }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <label> Seating Capacity </label>
+    <select id='car-seating' name='seating'>
+        <option value=any>Any Seating Capacity</option>
+        {% for seat in car_seating %}
+          <option value={{ seat.car_seatingcapacity }}>{{ seat.car_seatingcapacity }}</option>
+        {% endfor %}
+    </select>
+    <label> Body Type </label>
+    <select id='car-body' name='body'>
+        <option value=any>Any Body Type</option>
+        {% for body in car_body %}
+          <option value={{ body.car_bodytype }}>{{ body.car_bodytype }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <input type="submit" value="Search">
+
+  </form>
+  <a href="{% url 'index' %}">Advanced search</a></li>
+  <br><br>
+  <p>Current available inventory:</p>
   <ul>
-    <li><strong>Orders:</strong> {{ num_orders }}</li>
-    <li><strong>Customers:</strong> {{ num_customers }}</li>
+    <li><strong>Cars:</strong> {{ carlist|length }}</li>
+
   </ul>
 {% endblock %}
