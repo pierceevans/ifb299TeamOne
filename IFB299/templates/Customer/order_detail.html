@@ -7,21 +7,9 @@
   <div style="margin-left:20px;margin-top:20px">
     <h3>Details</h3>
 
-    {% for vehicle in car %}
-      {% for current_make in make %}
-        {% if order.car_id == vehicle.car_id  %}
-          {% if current_make.car_make_key == vehicle.car_make_key.car_make_key  %}
-            Vehicle Involved: <a href="/webApp/Car/{{ vehicle.car_id }}/">{{current_make.car_make_name}} {{current_make.car_model}} {{current_make.car_series}} </a>
-          {% endif %}
-        {% endif %}
-      {% endfor %}
-    {% endfor %}
-    {% for current_store in store %}
-      {% if order.pickup_store.store_id == current_store.store_id  %}
-      <br>
-        Pickup Store: {{current_store.store_name}}
-      {% endif %}
-    {% endfor %}
+    Vehicle Involved: <a href="/webApp/Car/{{ vehicle.car_id }}/">{{order.car.car_make_key.car_make_name}} {{order.car.car_make_key.car_model}} {{order.car.car_make_key.car_series}} </a>
+    <br>
+    Pickup Store: {{order.pickup_store.store_name}}
 
   </div>
 {% endblock %}
