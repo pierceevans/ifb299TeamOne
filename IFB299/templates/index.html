@@ -3,19 +3,26 @@
 {% block content %}
   <h3>Need to rent a car? You'll find it here!</h3>
   <br>
+  <!--Creates a form that will send a POST request to the search_results page when submitted-->
   <form id='car-search-form' method='POST' action='{% url 'search_results' %}'>
+    <!--Token to prevent cross-site scripting attacks-->
     {% csrf_token %}
+    <!--Select attribute that lets the user select a car make, from all the available options in the database. Labelled.-->
     <label> Make </label>
     <select id='car-make' name='make'>
         <option value=any>Any Make</option>
+        <!--Loops through list of distinct values in make column of database.-->
       {% for make in makelist %}
+      <!--Adds an option for the make, setting the value of the element to the make name.-->
         <option value={{ make.car_make_name }}>{{ make.car_make_name }}</option>
       {% endfor %}
     </select>
+    <!--Select attribute that lets the user select a car model. Currently only any option is allowed. Labelled.-->
     <label> Model </label>
     <select id='car-model' name='model'>
         <option value=any>Any Model</option>
     </select>
+    <!--Select attribute that lets the user select a fuel system, from all the available options in the database. Labelled.-->
     <label> Fuel System </label>
     <select id='car-fuel-system' name='fuel'>
         <option value=any>Any Fuel System</option>
@@ -23,6 +30,7 @@
           <option value={{ fuel.car_fuelsystem }}>{{ fuel.car_fuelsystem }}</option>
         {% endfor %}
     </select>
+    <!--Select attribute that lets the user select a drive , from all the available options in the database. Labelled.-->
     <label> Drive </label>
     <select id='car-drive' name='drive'>
         <option value=any>Any Drive</option>

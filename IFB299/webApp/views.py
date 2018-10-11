@@ -36,36 +36,60 @@ def CustomerDetailView(request, customerID):
     return render(request, 'Customer/customer_detail.html', context)
 
 def CarDetailView(request, carID):
+    #Finds the apprpriate car object for the given key
     car = Car.objects.get(pk=carID)
+    #Gets all make objects
     make = Make.objects.all()
-
+    #Saves them to context
     context = {
         'car': car,
         'make' : make,
     }
-
+    #Renders page with context attached
     return render(request, 'Car/car_detail.html', context)
 
 
-def OrderDetailView(request, orderID):
+def OrderDetailView(request, customerID, orderID):
     order = Order.objects.get(pk=orderID)
+    make = Make.objects.all()
+    customer = Customer.objects.all()
+    car = Car.objects.all()
+    location = Location.objects.all()
+    store = Store.objects.all()
+    date = Time.objects.all()
     context = {
         'order': order,
+        'make' : make,
+        'customer' : customer,
+        'car' : car,
+        'location' : location,
+        'store' : store,
+        'date' : date,
     }
 
     return render(request, 'Customer/order_detail.html', context)
 
 def signup(request):
+    #Checks to see if the request is POST or GET. If it is post, it has
+    #been sent by the server, as specified in the 'action' method of
+    #the form
     if request.method == 'POST':
+        #Gets the form from the request
         form = UserCreationForm(request.POST)
+        #Checks to see if the form is valid
         if form.is_valid():
+            #Saves the form
             form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
+            #Gets the username and password from the form, before authenticating
+            #and logging the user in
             user = authenticate(username=username, password=raw_password)
             login(request, user)
+            #Redirects user to home page
             return redirect('index')
     else:
+        #Shows unfilled form if request is GET (Sent by the user)
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
@@ -84,15 +108,25 @@ def all_cars(request):
     return render(request, 'all_cars.html', context)
 
 def search_results(request):
+    #Checks to see if the page is being requestd
+    #using POST. This is to check if the page is
+    #being requested by a user or the server.
     if request.method == 'POST':
+        #Gets all the data from the forms and
+        #sets it to variables
         make = request.POST.get('make')
         model = request.POST.get('model')
         fuel = request.POST.get('fuel')
         drive = request.POST.get('drive')
         seating = request.POST.get('seating')
         body = request.POST.get('body')
+        #Creates an empty dictionary
         my_dict = {
         }
+        #For each variable, checks if the
+        #user has set the form to include all
+        #results or has set a specific value,
+        #before adding the value to the dictionary
         if make == "any":
             my_dict['make'] = "%"
         else:
@@ -118,6 +152,9 @@ def search_results(request):
         else:
             my_dict['body'] = body
 
+        #SQL Query to select all the appropriate data from the database. This is
+        #dependent on the options set by the user. This query makes use of parameters
+        #that are decided at runtime, using the values set in the dictionary
         c_results = Make.objects.raw('''SELECT * FROM ifb299_database.car c
                                         INNER JOIN ifb299_database.make m
                                         ON c.Car_Make_Key = m.Car_Make_Key
@@ -129,13 +166,14 @@ def search_results(request):
                                         c.Car_BodyType LIKE %(body)s
                                         ORDER BY c.Car_ID;''', my_dict)
 
-        print(c_results)
 
         context = {
             'c_results' : c_results
         }
+        #Renders the page
         return render(request, 'search_results.html', context)
     else:
+        #Redirects user to the home page if they send a GET request
         return redirect('index')
 
 class CustomerListView(generic.ListView):

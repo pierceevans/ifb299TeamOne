@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+<!--The heading of the page, and counts the numbers of cars found. Has a search again option that links back to the home page -->
 <h3>Here's your results!</h3> Number of cars found: {{ c_results|length }}. <a href="{% url 'index' %}">Search again?</a>
 
 <div id='car_table'>
   <table>
     <tr>
+      <!--Heading in the table for each value of the car in the database -->
       <th> Make </th>
       <th> Model </th>
       <th>Series</th>
@@ -21,8 +23,10 @@
       <th> Drive </th>
       <th>Wheelbase </th>
     </tr>
+    <!-- Loops for each result found -->
     {% for result in c_results %}
     <tr>
+      <!-- Creates a row of cells for each result found that contains each value a car has -->
       <td> {{ result.car_make_name }} </td>
       <td> {{ result.car_model }} </td>
       <td> {{ result.car_series }} </td>
@@ -37,7 +41,7 @@
       <td> {{ result.Car_BodyType }} </td>
       <td> {{ result.Car_Drive }} </td>
       <td> {{ result.Car_Wheelbase }} </td>
-      <td> Go! </td>
+      <td><a href="/webApp/Car/{{ result.Car_ID }}/">Go! </a></td>
 
     </tr>
     {% endfor %}

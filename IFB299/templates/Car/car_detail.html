@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  <!--Gets and displays the make values associated with the car ID given-->
   <h2>{{ car.car_make_key.car_make_name }} {{ car.car_make_key.car_model }} {{ car.car_make_key.car_series }}</h2>
   <div id="car-details">
+    <!--Each value associated with the car is shown, based on the given car ID. -->
     <p><b>Year released: </b>{{ car.car_series_year }}&nbsp&nbsp&nbsp <b>Original Price: </b>${{ car.car_pricenew }} </p>
     <p><b>Engine Size: </b>{{ car.car_enginesize }} </p>
     <p><b>Fuel System: </b>{{ car.car_fuelsystem }} </p>
