@@ -19,6 +19,7 @@ def index(request):
         'car_drive_list' : car_drive_list,
         'car_seating' : car_seating,
         'car_body' : car_body,
+        'postcode' : postcode,
     }
 
     return render(request, 'index.html', context)
@@ -120,6 +121,7 @@ def search_results(request):
         drive = request.POST.get('drive')
         seating = request.POST.get('seating')
         body = request.POST.get('body')
+        postcode = request.POST.get('postcode')
         #Creates an empty dictionary
         my_dict = {
         }
@@ -151,10 +153,20 @@ def search_results(request):
             my_dict['body'] = "%"
         else:
             my_dict['body'] = body
+        if postcode == "any":
+            my_dict['postcode'] = "%"
+        else:
+            my_dict['postcode'] = postcode
 
         #SQL Query to select all the appropriate data from the database. This is
         #dependent on the options set by the user. This query makes use of parameters
         #that are decided at runtime, using the values set in the dictionary
+        #UPDATE --------------------
+        #UPDATE tried adding location as l and implementing Postcode
+        #UPDATE but there's way too many complexitites for db
+        #UPDATECODE: INNER JOIN ifb299_database.location l
+        #UPDATECODE: l.Postcode LIKE %(postcode)s
+        #UPDATE --------------------
         c_results = Make.objects.raw('''SELECT * FROM ifb299_database.car c
                                         INNER JOIN ifb299_database.make m
                                         ON c.Car_Make_Key = m.Car_Make_Key
