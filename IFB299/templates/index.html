@@ -53,6 +53,14 @@
           <option value={{ body.car_bodytype }}>{{ body.car_bodytype }}</option>
         {% endfor %}
     </select>
+    <!--This is the postcode attempt -->
+    <label> Postcode </label>
+    <select id='postcode' name='postcode'>
+        <option value=any>Postcode</option>
+        {% for postcode in postcode %}
+          <option value={{ location.postcode }}>{{ location.postcode }}</option>
+        {% endfor %}
+    </select>
     <br>
     <input type="submit" value="Search">
 
