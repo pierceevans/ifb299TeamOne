@@ -158,11 +158,13 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
+#This is me tryna update the models for postcode
 class Location(models.Model):
     location_id = models.IntegerField(db_column='Location_ID', primary_key=True)  # Field name made lowercase.
     store_state = models.CharField(db_column='Store_State', max_length=20, blank=True, null=True)  # Field name made lowercase.
     store_city = models.CharField(db_column='Store_City', max_length=20, blank=True, null=True)  # Field name made lowercase.
     store_address = models.CharField(db_column='Store_Address', max_length=30, blank=True, null=True)  # Field name made lowercase.
+    postcode = models.CharField(db_column='Postcode', max_length=4, blank=True, null=True) # Field name made lowercase
 
     class Meta:
         managed = False
