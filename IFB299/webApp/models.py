@@ -204,7 +204,7 @@ class Store(models.Model):
     store_id = models.IntegerField(db_column='Store_ID', primary_key=True)  # Field name made lowercase.
     store_name = models.CharField(db_column='Store_Name', max_length=30, blank=True, null=True)  # Field name made lowercase.
     store_phone = models.CharField(db_column='Store_Phone', max_length=25, blank=True, null=True)  # Field name made lowercase.
-    location = models.ForeignKey(Location, models.DO_NOTHING, db_column='Location_ID', blank=True, null=True)  # Field name made lowercase.
+    location = models.ForeignKey('Location', models.DO_NOTHING, db_column='Location_ID', blank=True, null=True, related_name="location")  # Field name made lowercase.
 
     class Meta:
         managed = False

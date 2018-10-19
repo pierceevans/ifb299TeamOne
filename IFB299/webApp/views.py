@@ -19,7 +19,6 @@ def index(request):
         'car_drive_list' : car_drive_list,
         'car_seating' : car_seating,
         'car_body' : car_body,
-        'postcode' : postcode,
     }
 
     return render(request, 'index.html', context)

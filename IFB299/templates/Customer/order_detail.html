@@ -10,6 +10,11 @@
     Vehicle Involved: <a href="/webApp/Car/{{ vehicle.car_id }}/">{{order.car.car_make_key.car_make_name}} {{order.car.car_make_key.car_model}} {{order.car.car_make_key.car_series}} </a>
     <br>
     Pickup Store: {{order.pickup_store.store_name}}
+    <br>
+    Return Store: {{order.return_store.store_name}}
+    <br>
+    Order Duration: {{order.pickup_date.day}}/{{order.pickup_date.month}}/{{order.pickup_date.year}} - {{order.return_date.day}}/{{order.return_date.month}}/{{order.return_date.year}}
+    <br>
 
   </div>
 {% endblock %}
