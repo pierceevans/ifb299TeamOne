@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+{% extends "base.html" %}
+  
 <head>
-  {% block title %}<title>Car Rental Company</title>{% endblock %}
+  <title>Car Rental Company</title>}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -17,120 +19,137 @@
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 </head>
-<body>
-  <div class=main-content>
-    <div class="page-header">
-      {% block header %}
-      <div id="logo">
-        <img src="/static/unknown.png/" alt="CRC Logo" width="343px" height="76px">
-      </div>
-      <div id="header1">
-        {% if user.is_authenticated %}
-          <p>Welcome,<i> {{ user.get_username }} </i> |<a href="{% url 'logout' %}?next=/webApp"> Log Out </a> </p>
-        {% else %}
-          <p><a href="{% url 'login' %}"> Login </a>|<a href="{% url 'signup' %}"> Sign Up </a></p>
-        {% endif %}
-        <a href="{%url 'store-map' %}">Find your nearest store <span style="color: #AD0202;"><i class="fas fa-map-marker-alt"></i></span></a>
-        {% endblock %}
-      </div>
-      <div id="header2">
-        <h2><a href="{% url 'index' %}"> Home </a> &nbsp <a href="{% url 'all_cars' %}">Vehicle Fleet</a> &nbsp <a href="{% url 'about-us' %}">About Us</a> </h2>
-      </div>
-      <br><br>
-       <div id="search-bar">
-         <form action="/action_page.php">
-           <input type="text" placeholder="Search for a car make..." name="search">
-           <button type="submit"><i class="fa fa-search"></i></button>
-         </form>
-       </div>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-{% block content %}
-  <br>
-  <div id="car-image">
-    <img src="/static/mountain.jpg/" alt="Mountain car" width="100%" height="150%"><br>
-  <!--Creates a form that will send a POST request to the search_results page when submitted-->
-  <div id="search-form">
-    <form id='car-search-form' method='POST' action='{% url 'search_results' %}'>
+  
+{% block content%}
+  
+<body style="background-image: url(https://images.unsplash.com/photo-1517171504186-8da051d2cfaa?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=7f20ece0319499dc6073f313dfde976d&auto=format&fit=crop&w=2691&q=80); background-position: center; background-repeat: no-repeat; background-size: cover 100%;">
+  
+    <div class="jumbotron" align="center" style="background:none; margin:10%;">
+      <h1 class="display-4" style="color:white">Premium Australian Car Rentals</h1>
+      <p class="lead" style="color: white">Need hire a car? You'll find it here!</p>
+      <hr class="my-4">
+      
+      
+      <div>
+    <!--Creates a form that will send a POST request to the search_results page when submitted-->
+    <form id="search-form" method="POST" action="{% url 'search_results' %}" style="background-color: red; padding: 15px" align="left">
       <!--Token to prevent cross-site scripting attacks-->
       {% csrf_token %}
       <!--Select attribute that lets the user select a car make, from all the available options in the database. Labelled.-->
-      <label> Make </label>
-      <select id='car-make' name='make'>
-          <option value=any>Any Make</option>
-          <!--Loops through list of distinct values in make column of database.-->
-        {% for make in makelist %}
-        <!--Adds an option for the make, setting the value of the element to the make name.-->
-          <option value="{{ make.car_make_name }}">{{ make.car_make_name }}</option>
-        {% endfor %}
-      </select>
-      <!--Select attribute that lets the user select a car model. Currently only any option is allowed. Labelled.-->
-      <label> Model </label>
-      <select id='car-model' name='model'>
-          <option value=any>Any Model</option>
-      </select>
-      <!--Select attribute that lets the user select a fuel system, from all the available options in the database. Labelled.-->
-      <label> Fuel System </label>
-      <select id='car-fuel-system' name='fuel'>
-          <option value=any>Any Fuel System</option>
-          {% for fuel in car_fuelsystem_list %}
+      <div class="form-row">
+			<div class="col">
+				<label>Pick Up Location</label>
+				<input type="text" class="form-control" placeholder="Enter Your Pick Up Location">
+			</div>
+			<div class="col-3">
+				<label>Pick-Up Date</label>
+				<input type="date" class="form-control" placeholder="Select Pick-Up Date">
+			</div>
+			<div class="col-3">
+				<label>Return Date</label>
+				<input type="date" class="form-control" placeholder="Select Return Date">
+			</div>
+      
+        <!--Advanced Search-->
+        <div id="advSearch">
+          <div class="form-row">
+            <label> Make </label>
+            <select id="car-make" name="make">
+            <option value="any">Any Make</option>  
+              <!--Loops through list of distinct values in make column of database.-->
+              {% for make in makelist %}
+              <!--Adds an option for the make, setting the value of the element to the make name.-->
+              <option value="{{ make.car_make_name }}">{{ make.car_make_name }}</option>
+              {% endfor %}
+            </select>
+           
+            <!--Select attribute that lets the user select a car model. Currently only any option is allowed. Labelled.-->
+            <label> Model </label>
+            <select id="car-model" name="model">
+            <option value="any">Any Model</option>
+            </select>
+            
+            <!--Select attribute that lets the user select a fuel system, from all the available options in the database. Labelled.-->
+            <label> Fuel System </label>
+            <select id="car-fuel-system" name="fuel">
+            <option value="any">Any Fuel System</option>
+            {% for fuel in car_fuelsystem_list %}
             <option value="{{ fuel.car_fuelsystem }}">{{ fuel.car_fuelsystem }}</option>
           {% endfor %}
-      </select>
-      <!--Select attribute that lets the user select a drive , from all the available options in the database. Labelled.-->
-      <label> Drive </label>
-      <select id='car-drive' name='drive'>
-          <option value=any>Any Drive</option>
-          {% for drive in car_drive_list %}
-            <option value="{{ drive.car_drive }}">{{ drive.car_drive }}</option>
-          {% endfor %}
-      </select>
-      <br>
-      <label> Seating Capacity </label>
-      <select id='car-seating' name='seating'>
-          <option value=any>Any Seating Capacity</option>
-          {% for seat in car_seating %}
-            <option value="{{ seat.car_seatingcapacity }}">{{ seat.car_seatingcapacity }}</option>
-          {% endfor %}
-      </select>
-      <label> Body Type </label>
-      <select id='car-body' name='body'>
-          <option value=any>Any Body Type</option>
-          {% for body in car_body %}
-            <option value="{{ body.car_bodytype }}">{{ body.car_bodytype }}</option>
-          {% endfor %}
-      </select>
-      <!--This is the postcode attempt -->
-      <label> Postcode </label>
-      <select id='postcode' name='postcode'>
-          <option value=any>Postcode</option>
-          {% for postcode in postcode %}
-            <option value="{{ postcode.postcode }}">{{ postcode.postcode }}</option>
-          {% endfor %}
-      </select>
-      <br>
-      <input type="submit" value="Search">
+          </select>
+          </div>
+          
+          <div class="form-row">
+            <!--Select attribute that lets the user select a drive , from all the available options in the database. Labelled.-->
+            <label> Drive </label>
+            <select id="car-drive" name="drive">
+                <option value="any">Any Drive</option>
+                {% for drive in car_drive_list %}
+                  <option value="{{ drive.car_drive }}">{{ drive.car_drive }}</option>
+                {% endfor %}
+            </select>
 
+            <label> Seating Capacity </label>
+            <select id="car-seating"  name="seating">
+                <option value="any">Any Seating Capacity</option>
+                {% for seat in car_seating %}
+                  <option value="{{ seat.car_seatingcapacity }}">{{ seat.car_seatingcapacity }}</option>
+                {% endfor %}
+            </select>
+
+            <label> Body Type </label>
+            <select id="car-body" name="body">
+                <option value="any">Any Body Type</option>
+                {% for body in car_body %}
+                  <option value="{{ body.car_bodytype }}">{{ body.car_bodytype }}</option>
+                {% endfor %}
+            </select>
+          </div> 
+        
+         <div class="form-row">
+               <!--This is the postcode attempt -->
+          <label> Postcode </label>
+          <select id="postcode" name="postcode">
+              <option value="any">Postcode</option>
+              {% for postcode in postcode %}
+                <option value="{{ postcode.postcode }}">{{ postcode.postcode }}</option>
+              {% endfor %}
+          </select>
+          </div>    
+             
+        </div>
+        
+        <br>
+        <button class="btn-light btn-lg" type="submit">Search</button>
+        
+		</div>
     </form>
-    <a href="{% url 'index' %}">Advanced search</a>
+    
+  </div>
+  <a href="{% url 'index' %}" align="right">Advanced search</a>
+  </div>
+  
+  
+ 
+</body>
+{% endblock %}
+</html>
+  
+
+  
+      
+   <!-- 
+
+    
     <br><br>
     </div>
     <div id='index-title'>
       <h3> Premium Australian Car Rentals </h3>
     </div>
   </div>
-{% endblock %}
-</div>
-</div>
-</div>
-<div id="index-footer">
-Developed by IFB299 Team One (Group No. 114)
-{% if request.user.is_superuser %}
-<a href="{% url 'staff-portal' %}"> Go to the staff portal </a>
-{% else %}
 
-{% endif %}
 </div>
-</body>
-</html>
+</div>
+</div>-->
+
+

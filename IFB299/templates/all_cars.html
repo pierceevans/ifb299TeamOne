@@ -10,6 +10,10 @@
     <i class="far fa-calendar-alt"></i>  {{result.Car_Series_Year}}
     <i class="fas fa-dollar-sign"></i> {{result.Car_PriceNew}}
     <i class="fas fa-tire"></i> {{result.Car_Drive}}
+    <br>
+    <img src="/static/002-multiple-users-silhouette.png" height="16px" width="16px"></img> {{result.Car_SeatingCapacity}}
+    <img src="/static/003-gas-station.png" height="16px" width="16px"></img> {{result.Car_FuelSystem}}
+    <img src="/static/004-car-oil.png" height="16px" width="16px"></img> {{result.Car_TankCapacity}}
   </div>
   <form action="/webApp/Car/{{ result.Car_ID }}/">
     <input type="submit" value="See if it's available!" />

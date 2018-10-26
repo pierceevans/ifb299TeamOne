@@ -5,7 +5,6 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.contrib.gis.geoip2 import GeoIP2
-from ipware import get_client_ip
 
 
 def index(request):
