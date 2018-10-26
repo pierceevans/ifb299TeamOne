@@ -1,59 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="../../css/bootstrap-4.0.0.css" rel="stylesheet" type="text/css">
+
 {% extends "base.html" %}
-
 {% block content %}
-  <h3>Need to rent a car? You'll find it here!</h3>
-  <br>
-  <form id='car-search-form' method='POST' action='{% url 'search_results' %}'>
-    {% csrf_token %}
-    <label> Make </label>
-    <select id='car-make' name='make'>
-        <option value=any>Any Make</option>
-      {% for make in makelist %}
-        <option value={{ make.car_make_name }}>{{ make.car_make_name }}</option>
-      {% endfor %}
-    </select>
-    <label> Model </label>
-    <select id='car-model' name='model'>
-        <option value=any>Any Model</option>
-    </select>
-    <label> Fuel System </label>
-    <select id='car-fuel-system' name='fuel'>
-        <option value=any>Any Fuel System</option>
-        {% for fuel in car_fuelsystem_list %}
-          <option value={{ fuel.car_fuelsystem }}>{{ fuel.car_fuelsystem }}</option>
-        {% endfor %}
-    </select>
-    <label> Drive </label>
-    <select id='car-drive' name='drive'>
-        <option value=any>Any Drive</option>
-        {% for drive in car_drive_list %}
-          <option value={{ drive.car_drive }}>{{ drive.car_drive }}</option>
-        {% endfor %}
-    </select>
-    <br>
-    <label> Seating Capacity </label>
-    <select id='car-seating' name='seating'>
-        <option value=any>Any Seating Capacity</option>
-        {% for seat in car_seating %}
-          <option value={{ seat.car_seatingcapacity }}>{{ seat.car_seatingcapacity }}</option>
-        {% endfor %}
-    </select>
-    <label> Body Type </label>
-    <select id='car-body' name='body'>
-        <option value=any>Any Body Type</option>
-        {% for body in car_body %}
-          <option value={{ body.car_bodytype }}>{{ body.car_bodytype }}</option>
-        {% endfor %}
-    </select>
-    <br>
-    <input type="submit" value="Search">
 
+<body style="background-image:url(https://images.unsplash.com/photo-1517171504186-8da051d2cfaa?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=7f20ece0319499dc6073f313dfde976d&auto=format&fit=crop&w=2691&q=80)">
+	
+<div class="jumbotron container-fluid" align="center" style="background: none;">
+	  <h1 class="display-4" style="color:white">Premium Australian Car Rentals</h1>
+	  <p class="lead" style="color: white">Need hire a car? You'll find it here!</p>
+	  <hr class="my-4">
+	  
+	<form id="car-search-form" method="POST" action="{% url 'search_results' %}" style="background-color: red; padding: 15px" align="left">
+    {% csrf_token %}
+		
+		<div class="form-row">
+			<div class="col">
+				<label>Pick Up Location</label>
+				<input type="text" class="form-control" placeholder="Enter Your Pick Up Location">
+			</div>
+			<div class="col-3">
+				<label>Pick-Up Date</label>
+				<input type="date" class="form-control" placeholder="Select Pick-Up Date">
+			</div>
+			<div class="col-3">
+				<label>Return Date</label>
+				<input type="date" class="form-control" placeholder="Select Return Date">
+			</div>
+		</div>
+		
+		<p align="right" style="color:white;"><a data-toggle="collapse" href="#AdvSearch" aria-expanded="false" aria-controls="AdvSearch">Advanced search</a></p>
+		
+		<div class="form-group collapse" id="AdvSearch">
+		<div class="form-row" align="justify">
+			<div class="col-3">
+				<label>Make</label>
+				<select class="form-control" id="car-make" name="make" placeholder="Make">
+        			<option value="any">Any Make</option>
+      				{% for make in makelist %}
+        			<option value="{{ make.car_make_name }}">{{ make.car_make_name }}</option>
+      				{% endfor %}
+    			</select>
+			</div>
+			<div class="col-3">
+				<label> Model </label>
+				<select class="form-control" id="car-model" name="model">
+					<option value="any">Any Model</option>
+				</select>
+			</div>
+			<div class="col-3">
+				<label> Fuel System </label>
+				<select class="form-control" id="car-fuel-system" name="fuel">
+					<option value="any">Any Fuel System</option>
+					{% for fuel in car_fuelsystem_list %}
+					  <option value="{{ fuel.car_fuelsystem }}">{{ fuel.car_fuelsystem }}</option>
+					{% endfor %}
+				</select>
+			</div>
+		
+			
+		</div>
+    	<div class="form-row" align="justify">
+			<div class="col-3">
+				<label> Transmission </label>
+				<select class="form-control" id="car-drive" name="drive">
+					<option value="any">Any Drive</option>
+					{% for drive in car_drive_list %}
+					  <option value="{{ drive.car_drive }}">{{ drive.car_drive }}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="col-3">
+				<label> Seating Capacity </label>
+			<select class="form-control" id="car-seating" name="seating">
+				<option value="any">Any Seating Capacity</option>
+				{% for seat in car_seating %}
+				  <option value="{{ seat.car_seatingcapacity }}">{{ seat.car_seatingcapacity }}</option>
+				{% endfor %}
+			</select>
+			</div>
+			<div class="col-3">
+				<label> Body Type </label>
+				<select class="form-control" id="car-body" name="body">
+					<option value="any">Any Body Type</option>
+					{% for body in car_body %}
+					  <option value="{{ body.car_bodytype }}">{{ body.car_bodytype }}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+    	</div>
+		<!--search button functional-->
+		<br>
+		<button class="btn-primary btn-lg" href="submit" role="button"><p class="lead">Search Vehicles</p>
+		</button>
+	
   </form>
-  <a href="{% url 'index' %}">Advanced search</a></li>
+
+	  <p class="lead"> <a class="btn btn-primary btn-lg" href="#" role="button">Search Vehicles</a> </p>
+</div>
+<!--
   <br><br>
   <p>Current available inventory:</p>
   <ul>
     <li><strong>Cars:</strong> {{ carlist|length }}</li>
 
   </ul>
+-->
+
 {% endblock %}
+	</body>
+</html>
