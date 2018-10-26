@@ -165,6 +165,8 @@ class Location(models.Model):
     store_city = models.CharField(db_column='Store_City', max_length=20, blank=True, null=True)  # Field name made lowercase.
     store_address = models.CharField(db_column='Store_Address', max_length=30, blank=True, null=True)  # Field name made lowercase.
     postcode = models.CharField(db_column='Postcode', max_length=4, blank=True, null=True) # Field name made lowercase
+    latitude = models.CharField(db_column='Latitude', max_length=45, blank=True,null=True)
+    longitude = models.CharField(db_column='Longitude', max_length=45, blank=True, null=True)
 
     class Meta:
         managed = False

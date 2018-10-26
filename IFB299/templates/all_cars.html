@@ -1,48 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3>Need to rent a car? You'll find it here!</h3>
 
 <br>
-<div id='car_table'>
-  <table>
-    <tr>
-      <th> Make </th>
-      <th> Model </th>
-      <th>Series</th>
-      <th> Year </th>
-      <th> Price </th>
-      <th> Engine Size </th>
-      <th> Fuel System </th>
-      <th> Tank Capacity </th>
-      <th> Power </th>
-      <th> Seating Capacity</th>
-      <th> Standard Capacity </th>
-      <th> Body Type</th>
-      <th> Drive </th>
-      <th>Wheelbase </th>
-    </tr>
-    {% for result in c_results %}
-    <tr>
-      <td> {{ result.car_make_name }} </td>
-      <td> {{ result.car_model }} </td>
-      <td> {{ result.car_series }} </td>
-      <td> {{ result.Car_Series_Year }} </td>
-      <td> ${{ result.Car_PriceNew }} </td>
-      <td> {{ result.Car_EngineSize }} </td>
-      <td> {{ result.Car_FuelSystem }} </td>
-      <td> {{ result.Car_TankCapacity }} </td>
-      <td> {{ result.Car_Power }} </td>
-      <td> {{ result.Car_SeatingCapacity }} </td>
-      <td> {{ result.Car_StandardCapacity }} </td>
-      <td> {{ result.Car_BodyType }} </td>
-      <td> {{ result.Car_Drive }} </td>
-      <td> {{ result.Car_Wheelbase }} </td>
-      <td><a href="/webApp/Car/{{ result.Car_ID }}/">Go! </a></td>
+{% for result in c_results %}
+<div class='car'>
+  {{ result.car_make_name }}  {{ result.car_model }} {{ result.car_series }}<br>
+  <div class='car-details'>
+    <i class="far fa-calendar-alt"></i>  {{result.Car_Series_Year}}
+    <i class="fas fa-dollar-sign"></i> {{result.Car_PriceNew}}
+    <i class="fas fa-tire"></i> {{result.Car_Drive}}
+  </div>
+  <form action="/webApp/Car/{{ result.Car_ID }}/">
+    <input type="submit" value="See if it's available!" />
+  </form>
 
-    </tr>
-    {% endfor %}
-  </table>
 </div>
+{% endfor %}
 
 {% endblock %}

@@ -2,8 +2,8 @@
 
 {% block content %}
   <!--Gets and displays the make values associated with the car ID given-->
-  <h2>{{ car.car_make_key.car_make_name }} {{ car.car_make_key.car_model }} {{ car.car_make_key.car_series }}</h2>
   <div id="car-details">
+  <h2>{{ car.car_make_key.car_make_name }} {{ car.car_make_key.car_model }} {{ car.car_make_key.car_series }}</h2> <br>
     <!--Each value associated with the car is shown, based on the given car ID. -->
     <p><b>Year released: </b>{{ car.car_series_year }}&nbsp&nbsp&nbsp <b>Original Price: </b>${{ car.car_pricenew }} </p>
     <p><b>Engine Size: </b>{{ car.car_enginesize }} </p>
@@ -14,6 +14,28 @@
     <p><b>Standard Capacity: </b>{{ car.car_standardcapacity }} </p>
     <p><b>Body Type:</b> {{ car.car_bodytype }} </p>
     <p><b>Drive:</b> {{ car.car_drive }}&nbsp&nbsp&nbsp <b>Wheelbase: </b>{{ car.car_wheelbase }} </p>
+    {{order|length}}
+  </div>
+  <div id="car-location">
+    {% if order|length == 1 %}
+    <h4> This store is currently located at: {{order.return_store.store_name}} </h4>
+    <div id='carmap'></div>
+    <script>
+      var mymap = L.map("carmap").setView([{{order.return_store.location.latitude}},{{order.return_store.location.longitude}}], 6);
+
+      L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY21hYzE5OTkiLCJhIjoiY2poaWcwdWYyMjZoZzM2bm13ZWV2ODByMyJ9.LsODyuBK67nNc2Y-vW58jg", {
+        maxZoom: 18,
+        attribution: "Map data &copy; OpenStreetMap contributors, " +
+          "CC-BY-SA, " +
+          "Imagery © Mapbox",
+        id: "mapbox.streets"
+      }).addTo(mymap);
+        var marker = L.marker([{{ order.return_store.location.latitude }},{{ order.return_store.location.longitude}}]).addTo(mymap);
+        marker.bindPopup("<a href='/webApp/Store/{{order.return_store.store_id}}/'>{{ order.return_store.store_name }}</a>");
+
+    </script>
+    {% endif %}
+
   </div>
 
 {% endblock %}

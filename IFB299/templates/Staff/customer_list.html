@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for customer in customerlist %}
+<div class="customer">
+  <h3>{{ customer.customer_name }}</h3>
+  <div class="customer-details">
+    <i class="fas fa-phone"></i> {{ customer.customer_phone }}&nbsp
+    <i class="fas fa-map-marked-alt"></i> {{ customer.customer_address }}<br>
+    <i class="fas fa-birthday-cake"></i> {{ customer.customer_birthday }}&nbsp
+    <i class="fas fa-user-md"></i> {{ customer.customer_occupation }} &nbsp
+    {% if customer.customer_gender == "M" %}
+    <span style="font-size: 1.5em;">
+        <i class="fas fa-male"></i>
+    </span>
+    {% else %}
+    <span style="font-size: 1.5em;">
+        <i class="fas fa-female"></i>
+    </span>
+    {% endif %}
+
+  </div>
+  <form action="/webApp/staff/customers/{{ customer.customer_id }}/">
+    <input type="submit" value="See Orders" />
+  </form>
+</div>
+{% endfor %}
+
+
+{% endblock %}

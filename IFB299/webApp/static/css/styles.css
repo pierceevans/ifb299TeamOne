@@ -1,38 +1,27 @@
 .page-header {
   margin-top: 0;
-  background-color: #153E89;
+  background-color: #EAEAEA;
   width: 100%;
   height: 15%;
   font-family: 'M+ P Type-1 (basic latin) Thin';
-  color: #DDDDDD;
+  color: #2E2E2E;
   overflow: hidden;
 }
 
-.page-header h2 {
-  padding-left: 15px;
-  padding-bottom: 0px;
-  font-family: 'M+ P Type-1 (basic latin) Light';
-  display: inline-block;
-  margin-right: 10px;
-  margin-bottom: 0px;
-  padding-top: 20px;
+#mapid {
+  position: relative;
+top: 20px;
+width: 65%;
+height: 400px;
+border-radius: 15px;
+margin-left: 18%;
 }
 
-.page-header h6 {
-  padding-left: 15px;
-  padding-bottom: 3px;
-  padding-top: 0px
-  display: inline-block;
-  margin-right: 10px;
-
-}
-
-.page-header p {
-  display: inline-block;
-  margin-bottom: 0px;
-  float: right;
-  padding-top: 35px;
-  padding-right: 45px;
+#carmap {
+width: 65%;
+height: 400px;
+border-radius: 15px;
+margin-left: 18%;
 }
 
 .login-form {
@@ -58,7 +47,7 @@
   height: 50px;
   width:100%;
   padding-top: 15px;
-  background-color: #153E89;
+  background-color: #A2C0FF;
   font-family: 'M+ P Type-1 (basic latin) Thin';
   color: #DDDDDD;
   padding-bottom: 5px;
@@ -66,6 +55,11 @@
 }
 
 .page-footer a {
+  float: right;
+  padding-right: 6px;
+}
+
+#index-footer a {
   float: right;
   padding-right: 6px;
 }
@@ -93,4 +87,184 @@ label {
 
 #car-details {
   font-family: 'M+ P Type-1 (basic latin) Light';
+  margin-left: 5%;
+}
+
+#store-details {
+  font-family: 'M+ P Type-1 (basic latin) Light';
+  margin-left: 5%;
+}
+
+.icon {
+  margin: 0;
+  float: left;
+  padding: 15px;
+  font-family: 'M+ P Type-1 (basic latin) Light';
+  display: inline-block;
+  text-align: center;
+  font-size: 1.3em;
+}
+
+#search-form {
+  z-index: 2;
+  position: absolute;
+  top: 50%;
+}
+
+.icon2 {
+  padding: 15px;
+  margin: 0;
+  float: left;
+  font-family: 'M+ P Type-1 (basic latin) Light';
+  display: inline-block;
+  text-align: center;
+  font-size: 1.3em;
+}
+
+#icon1 {
+  padding: 15px;
+  margin: 0;
+  float: left;
+  padding-left: 25%;
+  font-family: 'M+ P Type-1 (basic latin) Light';
+  display: inline-block;
+  text-align: center;
+  font-size: 1.3em;
+}
+
+#icons {
+  padding-top: 3.5%
+}
+
+#banner {
+  width: 100%;
+  background-color: #CDCDCD;
+  padding-left: 36%;
+}
+
+.customer {
+  margin-top: 1%;
+  margin-left: 10%;
+  float: left;
+  width: 35%;
+  display: inline-block;
+  border: 2px solid #CACCD4;
+  margin-bottom: 4%;
+}
+
+.customer-details {
+  background-color: #CFCFCF;
+}
+
+.customer input[type=submit] {
+  background-color: #153E89;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width:100%;
+}
+
+#logo {
+  width: 343px;
+  margin: 0px;
+  float: left;
+}
+
+#header1 {
+  padding-left: 2%;
+  width: auto;
+  float: left;
+}
+
+#header2 {
+  padding-right: 5%;
+  width: auto;
+  float: right;
+}
+
+#search-bar {
+  float: right;
+  padding-bottom: 3px;
+  padding-right: 5%;
+}
+
+#description {
+  padding-left: 30%;
+  padding-right: 30%;
+  padding-top: 3%;
+}
+
+.car {
+  margin-top: 1%;
+  margin-left: 5%;
+  float: left;
+  width: 25%;
+  display: inline-block;
+  border: 2px solid #CACCD4;
+  margin-bottom: 4%;
+}
+
+.car-details {
+  background-color: #CFCFCF;
+
+}
+
+.car input[type=submit] {
+  background-color: #153E89;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width:100%;
+}
+
+#car-location {
+  margin-left: 20px;
+  font-family: 'M+ P Type-1 (basic latin) Thin';
+
+}
+
+#store-location {
+  margin-left: 20px;
+  font-family: 'M+ P Type-1 (basic latin) Thin';
+  width: 50%;
+  margin-top: 20px;
+}
+
+#index-footer {
+  z-index: 2;
+  position: absolute;
+bottom: 0;
+ width:100%;
+  padding-top: 15px;
+  background-color: #A2C0FF;
+  font-family: 'M+ P Type-1 (basic latin) Thin';
+  color: #DDDDDD;
+  padding-bottom: 5px;
+  padding-left: 3px;
+
+}
+
+#portal {
+  width: 100%;
+}
+
+#car-image {
+  width: 100%;
+  z-index: -1;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+#index-title {
+  position: absolute;
+  z-index: 3;
+  top: 0;
 }

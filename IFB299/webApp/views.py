@@ -4,6 +4,9 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
+from django.contrib.gis.geoip2 import GeoIP2
+from ipware import get_client_ip
+
 
 def index(request):
     carlist = Car.objects.all().order_by('car_id')
@@ -12,6 +15,7 @@ def index(request):
     car_drive_list = Car.objects.values('car_drive').distinct().order_by('car_drive')
     car_seating = Car.objects.values('car_seatingcapacity').distinct().order_by('car_seatingcapacity')
     car_body = Car.objects.values('car_bodytype').distinct().order_by('car_bodytype')
+    postcode = Location.objects.values('postcode').distinct().order_by('postcode')
     context = {
         'carlist' : carlist,
         'makelist' : makelist,
@@ -19,6 +23,7 @@ def index(request):
         'car_drive_list' : car_drive_list,
         'car_seating' : car_seating,
         'car_body' : car_body,
+        'postcode' : postcode,
     }
 
     return render(request, 'index.html', context)
@@ -41,9 +46,12 @@ def CarDetailView(request, carID):
     #Gets all make objects
     make = Make.objects.all()
     #Saves them to context
+    order = Order.objects.get(car=carID)
+
     context = {
-        'car': car,
-        'make' : make,
+            'car': car,
+            'make' : make,
+            'order' : order,
     }
     #Renders page with context attached
     return render(request, 'Car/car_detail.html', context)
@@ -107,6 +115,46 @@ def all_cars(request):
     }
     return render(request, 'all_cars.html', context)
 
+def all_stores(request):
+
+    return render(request, 'all_stores')
+
+def staffPortal(request):
+
+    return render(request, 'Staff/portal.html')
+
+def customerList(request):
+    customerlist = Customer.objects.all()
+    context = {
+        'customerlist' : customerlist
+    }
+    return render(request, 'Staff/customer_list.html', context)
+
+def orderList(request):
+    return render(request, 'Staff/order_list.html')
+
+def reportsView(request):
+    return render(request, 'Staff/reports.html')
+
+def aboutView(request):
+    return render(request, 'about-us.html')
+
+def storeDetailView(request, store_id):
+    store = Store.objects.get(pk=store_id)
+    context = {
+        'store' : store
+    }
+    return render(request, 'Store/store_detail.html', context)
+
+def mapView(request):
+    storelist = Store.objects.all()
+    locationlist = Location.objects.all()
+    context = {
+        'storelist' : storelist,
+        'locationlist' : locationlist,
+    }
+    return render(request, 'store-map.html', context)
+
 def search_results(request):
     #Checks to see if the page is being requestd
     #using POST. This is to check if the page is
@@ -120,7 +168,6 @@ def search_results(request):
         drive = request.POST.get('drive')
         seating = request.POST.get('seating')
         body = request.POST.get('body')
-        postcode = request.POST.get('postcode')
         #Creates an empty dictionary
         my_dict = {
         }
@@ -152,20 +199,10 @@ def search_results(request):
             my_dict['body'] = "%"
         else:
             my_dict['body'] = body
-        if postcode == "any":
-            my_dict['postcode'] = "%"
-        else:
-            my_dict['postcode'] = postcode
 
         #SQL Query to select all the appropriate data from the database. This is
         #dependent on the options set by the user. This query makes use of parameters
         #that are decided at runtime, using the values set in the dictionary
-        #UPDATE --------------------
-        #UPDATE tried adding location as l and implementing Postcode
-        #UPDATE but there's way too many complexitites for db
-        #UPDATECODE: INNER JOIN ifb299_database.location l
-        #UPDATECODE: l.Postcode LIKE %(postcode)s
-        #UPDATE --------------------
         c_results = Make.objects.raw('''SELECT * FROM ifb299_database.car c
                                         INNER JOIN ifb299_database.make m
                                         ON c.Car_Make_Key = m.Car_Make_Key
